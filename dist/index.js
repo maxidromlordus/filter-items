@@ -1,68 +1,86 @@
 "use strict";
 
 // Selectors
-var filterButtons = document.querySelector(".sortBtn");
-var searchItem = document.getElementById("search-item");
-var searchButton = document.getElementById("search-icon");
-console.log(searchItem.innerText); //filter by find button
-
-searchButton.addEventListener("click", function (e) {
+var filterButtons = document.querySelector('.sortBtn');
+var searchItem = document.getElementById('search-item');
+var searchButton = document.getElementById('search-icon');
+var lightBoxContainer = document.querySelector('.lightbox-container');
+var allContainer = document.getElementById('store');
+var allStoreElements = document.querySelectorAll('.store-item');
+var allStoreImgs = document.querySelectorAll('.store-img');
+var imgArray = [];
+searchButton.addEventListener('click', function (e) {
   e.preventDefault();
 
   if (searchItem.value) {
-    var allStoreElements = document.querySelectorAll(".store-item"); //console.log(allStoreElements);
-
+    //console.log(allStoreElements);
     allStoreElements.forEach(function (element) {
-      element.classList.remove("hide");
+      element.classList.remove('hide');
 
       if (element.dataset.item !== searchItem.value) {
-        element.classList.add("hide"); ////
+        element.classList.add('hide');
       }
     });
   }
 }); // filter by buttons
 
-filterButtons.addEventListener("click", function (e) {
+filterButtons.addEventListener('click', function (e) {
   e.preventDefault();
   var selectedFilter = e.target.text;
 
   if (selectedFilter) {
-    var allStoreElements = document.querySelectorAll(".store-item"); //console.log(allStoreElements);
-
+    //console.log(allStoreElements);
     allStoreElements.forEach(function (element) {
-      element.classList.remove("hide"); //console.log(element.dataset);
+      element.classList.remove('hide'); //console.log(element.dataset);
 
       switch (selectedFilter) {
-        case "cakes":
+        case 'cakes':
           if (element.dataset.item !== selectedFilter) {
-            console.log(element);
-            element.classList.add("hide");
+            element.classList.add('hide');
+            break;
           }
 
-        case "all":
+        case 'all':
           if (element.dataset.item !== selectedFilter) {
-            element.classList.remove("hide");
+            element.classList.remove('hide');
+            break;
           }
 
-        case "cupcakes":
+        case 'cupcakes':
           if (element.dataset.item !== selectedFilter) {
-            console.log(element);
-            element.classList.add("hide");
+            element.classList.add('hide');
+            break;
           }
 
-        case "sweets":
+        case 'sweets':
           if (element.dataset.item !== selectedFilter) {
-            console.log(element);
-            element.classList.add("hide");
+            element.classList.add('hide');
+            break;
           }
 
-        case "doughnuts":
+        case 'doughnuts':
           if (element.dataset.item !== selectedFilter) {
-            console.log(element);
-            element.classList.add("hide");
+            element.classList.add('hide');
+            break;
           }
 
       }
     });
+  }
+});
+allStoreImgs.forEach(function (element) {
+  imgArray.push(element.getAttribute('src'));
+}); //Modal window show on click
+
+allStoreImgs.forEach(function (element, index) {
+  element.addEventListener('click', function (e) {
+    console.log(imgArray[index]);
+    lightBoxContainer.classList.add('show');
+    lightBoxContainer.style.backgroundImage = "url(".concat(imgArray[index], ")");
+  });
+});
+lightBoxContainer.addEventListener('click', function () {
+  if (lightBoxContainer.classList.contains('show')) {
+    lightBoxContainer.classList.remove('show');
   }
 });

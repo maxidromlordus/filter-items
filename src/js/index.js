@@ -1,63 +1,82 @@
 // Selectors
 
-const filterButtons = document.querySelector(".sortBtn");
-const searchItem = document.getElementById("search-item");
-const searchButton = document.getElementById("search-icon");
+const filterButtons = document.querySelector('.sortBtn');
+const searchItem = document.getElementById('search-item');
+const searchButton = document.getElementById('search-icon');
+const lightBoxContainer = document.querySelector('.lightbox-container');
+const allContainer = document.getElementById('store');
+const allStoreElements = document.querySelectorAll('.store-item');
+const allStoreImgs = document.querySelectorAll('.store-img');
+const imgArray = [];
 
-console.log(searchItem.innerText);
-
-//filter by find button
-
-searchButton.addEventListener("click", (e) => {
+searchButton.addEventListener('click', (e) => {
   e.preventDefault();
   if (searchItem.value) {
-    const allStoreElements = document.querySelectorAll(".store-item");
     //console.log(allStoreElements);
     allStoreElements.forEach((element) => {
-      element.classList.remove("hide");
+      element.classList.remove('hide');
       if (element.dataset.item !== searchItem.value) {
-        element.classList.add("hide"); ////
+        element.classList.add('hide');
       }
     });
   }
 });
 
 // filter by buttons
-filterButtons.addEventListener("click", (e) => {
+filterButtons.addEventListener('click', (e) => {
   e.preventDefault();
   const selectedFilter = e.target.text;
   if (selectedFilter) {
-    const allStoreElements = document.querySelectorAll(".store-item");
     //console.log(allStoreElements);
     allStoreElements.forEach((element) => {
-      element.classList.remove("hide");
+      element.classList.remove('hide');
       //console.log(element.dataset);
       switch (selectedFilter) {
-        case "cakes":
+        case 'cakes':
           if (element.dataset.item !== selectedFilter) {
-            console.log(element);
-            element.classList.add("hide");
+            element.classList.add('hide');
+            break;
           }
-        case "all":
+        case 'all':
           if (element.dataset.item !== selectedFilter) {
-            element.classList.remove("hide");
+            element.classList.remove('hide');
+            break;
           }
-        case "cupcakes":
+        case 'cupcakes':
           if (element.dataset.item !== selectedFilter) {
-            console.log(element);
-            element.classList.add("hide");
+            element.classList.add('hide');
+            break;
           }
-        case "sweets":
+        case 'sweets':
           if (element.dataset.item !== selectedFilter) {
-            console.log(element);
-            element.classList.add("hide");
+            element.classList.add('hide');
+            break;
           }
-        case "doughnuts":
+        case 'doughnuts':
           if (element.dataset.item !== selectedFilter) {
-            console.log(element);
-            element.classList.add("hide");
+            element.classList.add('hide');
+            break;
           }
       }
     });
+  }
+});
+
+allStoreImgs.forEach((element) => {
+  imgArray.push(element.getAttribute('src'));
+});
+
+//Modal window show on click
+allStoreImgs.forEach((element, index) => {
+  element.addEventListener('click', (e) => {
+    console.log(imgArray[index]);
+    lightBoxContainer.classList.add('show');
+    lightBoxContainer.style.backgroundImage = `url(${imgArray[index]})`;
+  });
+});
+
+lightBoxContainer.addEventListener('click', () => {
+  if (lightBoxContainer.classList.contains('show')) {
+    lightBoxContainer.classList.remove('show');
   }
 });
