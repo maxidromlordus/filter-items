@@ -2,3 +2,4 @@
 
 - Added filter by buttons
 - Added filter by find-input
+- Added show image on click
